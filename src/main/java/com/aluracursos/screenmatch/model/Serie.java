@@ -77,17 +77,7 @@ public class Serie {
    public void setTotalTemporadas(Integer totalTemporadas) {
       this.totalTemporadas = totalTemporadas;
    }
+   // to String()
+   
 
-   @Override
-   public String toString() {
-      return "Serie{"+
-                  "Genero=" + genero + "\n" +
-                  ", actores='" + actores + '\n' +
-                  ", titulo='" + titulo + '\n' +
-                  ", totalTemporadas=" + totalTemporadas + '\n' +
-                  ", evaluacion='" + evaluacion + '\n' +
-                  ", poster='" + poster + '\n' +
-                  ", sinopsis='" + sinopsis +
-                  '}';
-   }
 }
