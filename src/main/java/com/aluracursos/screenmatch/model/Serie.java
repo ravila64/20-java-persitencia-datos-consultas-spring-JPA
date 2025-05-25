@@ -78,6 +78,16 @@ public class Serie {
       this.totalTemporadas = totalTemporadas;
    }
    // to String()
-   
+   @Override
+   public String toString() {
+      return "Serie:" + "\n" +
+            "Titulo='" + titulo + '\''+ "\n" +
+            "TotalTemporadas=" + totalTemporadas + "\n" +
+            "Evaluacion='" + evaluacion + '\'' + "\n" +
+            "Poster='" + poster + '\'' +"\n" +
+            "Genero=" + genero +"\n" +
+            "Actores='" + actores + '\'' +"\n" +
+            "Sinopsis='" + sinopsis + '\'';
+   }
 
 }
