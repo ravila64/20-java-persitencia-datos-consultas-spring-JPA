@@ -1,0 +1,16 @@
+@OneToMany y @ManyToOne
+
+Se utilizan para mapear relaciones uno a muchos y muchos a uno entre entidades. Definen las asociaciones entre las tablas en la base de datos.
+
+@Entity
+public class Autor {
+    @OneToMany(mappedBy = "autor")
+    private List<Libro> libros;
+}
+
+@Entity
+public class Libro {
+    @ManyToOne
+    @JoinColumn(name = "autor_id")
+    private Autor autor;
+}

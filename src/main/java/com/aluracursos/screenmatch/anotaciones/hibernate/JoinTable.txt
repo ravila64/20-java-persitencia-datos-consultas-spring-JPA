@@ -1,0 +1,12 @@
+@JoinTable
+
+La anotación @JoinTable se utiliza para mapear tablas de unión en relaciones muchos a muchos. Especifica la tabla intermedia que conecta dos entidades.
+
+@Entity
+public class Estudiante {
+    @ManyToMany
+    @JoinTable(name = "inscripcion",
+               joinColumns = @JoinColumn(name = "estudiante_id"),
+               inverseJoinColumns = @JoinColumn(name = "curso_id"))
+    private List<Curso> cursos;
+}

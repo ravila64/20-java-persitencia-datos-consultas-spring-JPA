@@ -1,0 +1,7 @@
+@JoinColumn
+
+La anotación @JoinColumn se utiliza para especificar la columna que se utilizará para representar una relación entre entidades. Se utiliza con frecuencia en conjunto con @ManyToOne y @OneToOne.
+
+@ManyToOne
+@JoinColumn(name = "autor_id")
+private Autor autor;

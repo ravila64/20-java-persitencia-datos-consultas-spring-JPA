@@ -1,0 +1,6 @@
+@Transient
+
+La anotación @Transient se utiliza para marcar una propiedad como no persistente. Esto significa que la propiedad no se mapeará a una columna en la base de datos.
+
+@Transient
+private transientProperty;

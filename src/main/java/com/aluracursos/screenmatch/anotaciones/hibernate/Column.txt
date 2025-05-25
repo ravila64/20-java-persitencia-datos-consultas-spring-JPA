@@ -1,0 +1,6 @@
+@Column
+
+Similar a lo que sucede con la anotación @Table, Hibernate utiliza los nombres de los atributos y los considera idénticos a los nombres de las columnas en la base de datos. En caso de que sea necesario utilizar nombres diferentes, puedes configurar el nombre de la columna, así como su tipo y si es obligatoria.
+
+@Column(name = "nombre_completo", nullable = false)
+private String nombre;

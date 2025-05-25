@@ -1,0 +1,14 @@
+@Embeddable y @Embedded
+
+Estas anotaciones se utilizan para representar tipos integrados (embeddable types) que pueden ser utilizados como componentes en entidades.
+
+@Embeddable
+public class Direccion{ ... }
+
+@Entity
+public class Cliente {
+    @Embedded
+    private Direccion direccion;
+}
+
+Además de estas anotaciones, hay muchas otras que se pueden consultar en la documentación de anotaciones de Hibernate, y que facilitan mucho la vida diaria de los desarrolladores que utilizan el ORM.

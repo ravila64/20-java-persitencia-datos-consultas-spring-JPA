@@ -1,14 +1,23 @@
 package com.aluracursos.screenmatch.model;
+// si utilizara openai, api
+//import com.aluracursos.screenmatch.service.ConsultaChatGPT;
 
-import com.aluracursos.screenmatch.service.ConsultaChatGPT;
+import jakarta.persistence.*;
 
 import java.util.OptionalDouble;
 
+@Entity
+@Table(name = "series")
 public class Serie {
+   @Id
+   @GeneratedValue(strategy = GenerationType.IDENTITY)
+   private long Id;
+   @Column(unique = true)
    private String titulo;
    private Integer totalTemporadas;
    private String evaluacion;
    private String poster;
+   @Enumerated(EnumType.STRING)
    private Categoria genero;
    private String actores;
    private String sinopsis;
@@ -24,6 +33,14 @@ public class Serie {
       // this.sinopsis = ConsultaChatGPT.obtenerTraduccion(ds.sinopsis());
    }
    //getters and setters
+
+   public long getId() {
+      return Id;
+   }
+
+   public void setId(long id) {
+      Id = id;
+   }
 
    public String getActores() {
       return actores;
@@ -80,16 +97,17 @@ public class Serie {
    public void setTotalTemporadas(Integer totalTemporadas) {
       this.totalTemporadas = totalTemporadas;
    }
+
    // to String()
    @Override
    public String toString() {
       return "Serie:" + "\n" +
-            "Titulo='" + titulo + '\''+ "\n" +
+            "Titulo='" + titulo + '\'' + "\n" +
             "TotalTemporadas=" + totalTemporadas + "\n" +
             "Evaluacion='" + evaluacion + '\'' + "\n" +
-            "Poster='" + poster + '\'' +"\n" +
-            "Genero=" + genero +"\n" +
-            "Actores='" + actores + '\'' +"\n" +
+            "Poster='" + poster + '\'' + "\n" +
+            "Genero=" + genero + "\n" +
+            "Actores='" + actores + '\'' + "\n" +
             "Sinopsis='" + sinopsis + '\'';
    }
 

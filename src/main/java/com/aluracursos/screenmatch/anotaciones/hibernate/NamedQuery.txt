@@ -1,0 +1,7 @@
+@NamedQuery
+
+Esta anotación se utiliza para definir consultas JPQL (Java Persistence Query Language) nombradas que pueden reutilizarse en varias partes del código.
+
+@Entity
+@NamedQuery(name = "Cliente.findAll", query = "SELECT c FROM Cliente c")
+public class Cliente { ... }

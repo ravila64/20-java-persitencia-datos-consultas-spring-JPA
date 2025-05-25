@@ -1,0 +1,11 @@
+example:
+@Entity
+@Table(name = "mi_tabla")
+public class MiEntidad { ... }
+@Entity
+
+Esta anotación se utiliza para marcar una clase como una entidad que debe ser mapeada a una tabla de la base de datos. Cada entidad corresponde a una tabla en la base de datos.
+
+@Table
+
+Por defecto, Hibernate utiliza el nombre de la clase como el nombre de la tabla en la base de datos, realizando solo la conversión del formato de nomenclatura de PascalCase a SnakeCase, que es el formato utilizado en la base de datos. Sin embargo, si es necesario que el nombre de la clase sea diferente al nombre de la tabla en la base de datos, es posible utilizar esta anotación que permite personalizar el mapeo entre la clase de entidad y la tabla de la base de datos. Con ella, puedes especificar el nombre de la tabla, el esquema y las restricciones de la clave primaria.

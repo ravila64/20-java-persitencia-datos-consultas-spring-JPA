@@ -1,0 +1,6 @@
+@Enumerated
+
+La anotación @Enumerated se utiliza para mapear campos enumerados (enum) a columnas de la base de datos.
+
+@Enumerated(EnumType.STRING)
+private Status status;

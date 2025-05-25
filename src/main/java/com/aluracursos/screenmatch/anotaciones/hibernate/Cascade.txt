@@ -1,0 +1,7 @@
+@Cascade
+
+La anotación @Cascade se utiliza para especificar el comportamiento de cascada de operaciones de persistencia, como guardar y eliminar, en relaciones. Por ejemplo, puedes configurar para que las operaciones de guardado en cascada afecten a entidades relacionadas.
+
+@OneToMany(mappedBy = "departamento")
+@Cascade(CascadeType.SAVE_UPDATE)
+private List<Empleado> empleados;

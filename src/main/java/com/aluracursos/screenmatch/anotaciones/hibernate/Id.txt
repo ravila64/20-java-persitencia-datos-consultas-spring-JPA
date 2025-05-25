@@ -1,0 +1,11 @@
+@Id
+
+Marca un campo como la clave primaria de la entidad. Hibernate utiliza esta anotación para identificar de manera única los registros en la base de datos.
+
+@GeneratedValue
+
+Utilizada en conjunto con @Id, esta anotación específica cómo se genera automáticamente la clave primaria. Puede utilizarse con estrategias como AUTO, IDENTITY, SEQUENCE o TABLE, según el tipo de base de datos.
+
+@Id
+@GeneratedValue(strategy = GenerationType.IDENTITY)
+private Long id;

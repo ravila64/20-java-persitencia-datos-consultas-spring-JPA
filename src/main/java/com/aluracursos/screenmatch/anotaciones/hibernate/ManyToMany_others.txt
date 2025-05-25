@@ -1,0 +1,7 @@
+@ManyToMany
+
+La anotación @ManyToMany se utiliza para mapear relaciones muchos a muchos entre entidades.
+
+@OneToOne
+
+La anotación @OneToOne se utiliza para mapear relaciones uno a uno entre entidades.
