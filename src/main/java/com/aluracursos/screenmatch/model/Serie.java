@@ -20,7 +20,8 @@ public class Serie {
       this.poster = ds.poster();
       this.genero = Categoria.fromString(ds.genero().split(",")[0].trim());  // 1er elem de 3 elementos separados ","
       this.actores = ds.actores();
-      this.sinopsis = ConsultaChatGPT.obtenerTraduccion(ds.sinopsis());
+      this.sinopsis = ds.sinopsis();
+      // this.sinopsis = ConsultaChatGPT.obtenerTraduccion(ds.sinopsis());
    }
    //getters and setters
 
