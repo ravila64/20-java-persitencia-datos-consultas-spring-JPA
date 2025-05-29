@@ -1,0 +1,18 @@
+Estrategia IDENTITY
+
+La estrategia IDENTITY hace uso de columnas de autoincremento proporcionadas por algunas bases de
+ datos. Cada vez que se inserta una nueva entidad en la base de datos, la columna de ID
+ autoincrementado se actualiza para generar un nuevo ID.
+
+Ejemplo de implementación de esta estrategia:
+
+@Entity
+public class Entidad {
+
+    @Id
+    @GeneratedValue(strategy=GenerationType.IDENTITY)
+    private Long id;
+
+}
+
+Esta estrategia es útil si estás utilizando una base de datos que admite columnas de autoincremento, como PostgreSQL, MySQL o SQL Server.

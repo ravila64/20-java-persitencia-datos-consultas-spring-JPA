@@ -1,0 +1,25 @@
+3 - Many-To-Many: Esta relación es un poco más compleja, ya que requiere una tabla intermedia para su implementación. Utilizamos la anotación @ManyToMany para representar esta relación. Echa un vistazo al ejemplo:
+
+@Entity
+public class Alumno {
+    @Id
+    private Long id;
+    private String nombre;
+
+    @ManyToMany
+    private List<Profesor> profesores;
+}
+
+@Entity
+public class Profesor {
+    @Id
+    private Long id;
+    private String nombre;
+
+    @ManyToMany(mappedBy = "profesores")
+    private List<Alumno> alumnos;
+}
+
+En este caso, estamos diciendo que un estudiante puede tener muchos profesores y un profesor puede tener muchos estudiantes. La tabla intermedia se crea automáticamente por JPA.
+
+Con esta comprensión de las relaciones de bases de datos y cómo representarlas en JPA, podrá modelar sus bases de datos de manera eficiente y lógica.

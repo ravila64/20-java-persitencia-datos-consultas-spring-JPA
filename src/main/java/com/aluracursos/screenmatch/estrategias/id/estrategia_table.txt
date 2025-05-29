@@ -1,0 +1,15 @@
+Estrategia TABLE
+
+Por último, tenemos la estrategia TABLE. Esta estrategia utiliza una tabla de base de datos separada para generar IDs. Es menos eficiente que las otras estrategias, pero tiene la ventaja de ser portátil entre diferentes proveedores de bases de datos.
+
+Ejemplo de implementación de esta estrategia:
+
+@Entity
+public class Entidad {
+     @Id
+    @GeneratedValue(strategy=GenerationType.TABLE)
+    private Long id;
+
+}
+
+Comprender estas estrategias y saber cuándo utilizar cada una de ellas te permitirá utilizar JPA de manera más eficiente, asegurando que tus datos se persistan de manera confiable y segura. Recuerda, la elección de la estrategia de ID correcta puede tener un gran impacto en la eficiencia de tu aplicación.

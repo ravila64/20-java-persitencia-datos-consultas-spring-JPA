@@ -1,0 +1,12 @@
+@Entity
+@Table(name = "pets")
+public class Pets {
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
+    private String name;
+    private String especies;
+}
+Te unes como desarrollador en el sistema Gatito Petshop. El objetivo de Gatito es tener un sistema eficiente para gestionar todas las mascotas de tu tienda. El equipo decidió utilizar Hibernate en la aplicación para mapear las entidades.
+
+Pero mientras revisaba el código, encontró la siguiente anotación de mapeo:

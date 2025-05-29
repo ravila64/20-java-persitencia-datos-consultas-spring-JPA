@@ -1,0 +1,13 @@
+2 - Many-To-One: Para este tipo de relación, utilizamos la anotación @ManyToOne. Veamos el ejemplo:
+
+@Entity
+public class Alumno {
+    @Id
+    private Long id;
+    private String nombre;
+
+    @ManyToOne
+    private Profesor profesor;
+}
+
+Aquí estamos indicando que varios estudiantes pueden ser enseñados por un profesor.

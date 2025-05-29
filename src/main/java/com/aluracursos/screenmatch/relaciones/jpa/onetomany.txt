@@ -1,0 +1,14 @@
+1 - One-To-Many: Utilizamos la anotación @OneToMany para representar este tipo de relación.
+Veamos un ejemplo:
+
+@Entity
+public class Profesor {
+    @Id
+    private Long id;
+    private String nombre;
+
+    @OneToMany(mappedBy = "profesor")
+    private List<Alumno> alumnos;
+}
+
+En este código, estamos indicando que un profesor puede tener muchos estudiantes. La propiedad mappedBy se utiliza para señalar el campo que representa al profesor en la entidad Alumno.

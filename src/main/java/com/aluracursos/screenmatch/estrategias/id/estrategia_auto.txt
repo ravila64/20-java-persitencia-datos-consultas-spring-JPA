@@ -1,0 +1,20 @@
+Al trabajar con tablas en bases de datos, las claves primarias son esenciales. Por lo general, creamos un identificador único o ID para representar estas claves de la mejor manera posible.
+
+Las claves primarias se utilizan para garantizar que cada entidad se guarde de manera única. Si cuando trabajamos con Java, la JVM se encarga de asignar a cada objeto un lugar en la memoria, en la base de datos esto debe configurarse. Utilizar un ID suele ser una buena forma de hacerlo.
+
+Existen varias formas de generar IDs en la base de datos, y JPA también nos ayuda con esto. Solo necesitas utilizar la anotación GeneratedValue y elegir la estrategia de generación del ID. ¡Posteriormente hablaremos sobre estas diversas estrategias existentes, ¿de acuerdo?!
+
+# Estrategia AUTO
+
+La estrategia AUTO es la estrategia predeterminada de generación de ID en JPA. Cuando se utiliza esta estrategia, es JPA la que determina la mejor estrategia a utilizar, basándose en la base de datos específica que estás utilizando.
+
+Aquí tienes un ejemplo de cómo implementar la estrategia AUTO en un código:
+
+@Entity
+public class Entidad {
+
+    @Id
+    @GeneratedValue(strategy=GenerationType.AUTO)
+    private Long id;
+}
+Esta estrategia es bastante práctica, ya que JPA se encarga de toda la lógica de generación de ID. Sin embargo, puede ser poco flexible si necesitas un mayor control sobre la generación de ID.

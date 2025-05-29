@@ -1,9 +1,10 @@
 package com.aluracursos.screenmatch.model;
 // si utilizara openai, api
-//import com.aluracursos.screenmatch.service.ConsultaChatGPT;
+// import com.aluracursos.screenmatch.service.ConsultaChatGPT;
 
 import jakarta.persistence.*;
 
+import java.util.List;
 import java.util.OptionalDouble;
 
 @Entity
@@ -21,7 +22,14 @@ public class Serie {
    private Categoria genero;
    private String actores;
    private String sinopsis;
+   //@Transient   //hay una lista de episodios, no la uso todavia
+   @OneToMany(mappedBy = "serie")  // uno o varios episodiso pueden tener solo una serie
+   private List<Episodio> episodios;
 
+   public Serie(){
+      // constructor de la clase Serie, que es predeterminado
+      // es exigencia de JPA, que se tenga un constructor en cada clase utilizada
+   }
    public Serie(DatosSerie ds) {
       this.titulo = ds.titulo();
       this.totalTemporadas = ds.totalTemporadas();

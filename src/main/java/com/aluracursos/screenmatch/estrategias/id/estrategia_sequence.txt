@@ -1,0 +1,16 @@
+Estrategia SEQUENCE
+
+La estrategia SEQUENCE utiliza una secuencia de la base de datos para generar IDs. Con esta estrategia, la secuencia se incrementa cada vez que se genera un ID, asegurando que cada ID sea único.
+
+Aquí tienes un ejemplo de cómo implementar la estrategia SEQUENCE:
+
+@Entity
+public class Entidad {
+
+    @Id
+    @GeneratedValue(strategy=GenerationType.SEQUENCE)
+    private Long id;
+
+}
+
+Esta estrategia es especialmente útil para bases de datos que admiten secuencias, ya que es muy eficiente y evita la posibilidad de colisiones de ID.

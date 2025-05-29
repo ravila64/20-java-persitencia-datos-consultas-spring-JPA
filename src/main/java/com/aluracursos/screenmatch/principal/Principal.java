@@ -2,6 +2,7 @@ package com.aluracursos.screenmatch.principal;
 
 import com.aluracursos.screenmatch.model.DatosSerie;
 import com.aluracursos.screenmatch.model.DatosTemporadas;
+import com.aluracursos.screenmatch.repository.SerieRepository;
 import com.aluracursos.screenmatch.service.ConsumoAPI;
 import com.aluracursos.screenmatch.service.ConvierteDatos;
 import com.aluracursos.screenmatch.model.Serie;
@@ -20,6 +21,11 @@ public class Principal {
    private ConvierteDatos conversor = new ConvierteDatos();
    private final String API_KEY = "&apikey=" + System.getenv("API_KEY_MOVIES");
    private List<DatosSerie> datosSeries = new ArrayList<>();
+   private SerieRepository repositorio;
+
+   public Principal(SerieRepository repository) {
+      this.repositorio = repository;
+   }
 
    public void muestraElMenu() {
       var opcion = -1;
@@ -77,17 +83,23 @@ public class Principal {
 
    private void buscarSerieWeb() {
       DatosSerie datos = getDatosSerie();
-      datosSeries.add(datos);
+      // reemplaza la add a la lista
+      Serie serie = new Serie(datos);
+      repositorio.save(serie); // hace grabacion tabla de la BD
+      //datosSeries.add(datos);  // estaba antes
       System.out.println(datos);
    }
 
    private void mostrarSeriesBuscadas() {
       // datosSeries.forEach(System.out::println);
       // se utilizara la clase Serie
-      List<Serie> series = new ArrayList<>();
-      series = datosSeries.stream()
-            .map(d->new Serie(d))
-            .collect(Collectors.toList());
+      // esta parte lo descxtivo
+//      List<Serie> series = new ArrayList<>();
+//      series = datosSeries.stream()
+//            .map(d->new Serie(d))
+//            .collect(Collectors.toList());
+      List<Serie> series = repositorio.findAll();
+
       series.stream()
             .sorted(Comparator.comparing(Serie::getGenero))
             .forEach(System.out::println);
