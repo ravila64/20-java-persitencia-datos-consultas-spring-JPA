@@ -1,0 +1,27 @@
+Para definir una relación bidireccional, necesitamos tener dos entidades que estén de alguna manera conectadas. Por ejemplo, consideremos un simple sistema de blogs donde tenemos publicaciones y comentarios. Cada publicación puede tener varios comentarios.
+
+@Entity
+public class Post {
+    @Id
+    @GeneratedValue
+    private Long id;
+    private String titulo;
+    private String contenido;
+
+    @OneToMany(mappedBy = "post")
+    private List<Comment> comments = new ArrayList<>();
+}
+
+@Entity
+public class Comentario {  //comment
+    @Id
+    @GeneratedValue
+    private Long id;
+    private String contenido;
+
+    @ManyToOne
+    @JoinColumn(name = "post_id")
+    private Post post;
+}
+
+En el ejemplo anterior, hemos definido una relación "OneToMany" de Post a Comentarios y una relación "ManyToOne" inversa de Comentarios a Post. mappedBy = "post" en Post se refiere al campo post en la clase Comentario.

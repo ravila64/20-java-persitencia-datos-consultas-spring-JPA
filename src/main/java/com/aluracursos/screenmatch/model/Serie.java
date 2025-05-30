@@ -22,8 +22,9 @@ public class Serie {
    private Categoria genero;
    private String actores;
    private String sinopsis;
-   //@Transient   //hay una lista de episodios, no la uso todavia
-   @OneToMany(mappedBy = "serie")  // uno o varios episodiso pueden tener solo una serie
+   //@Transient   //hay una lista de episodios, no la uso todavia, fetch= tipo perezosa o ansiosa
+   @OneToMany(mappedBy = "serie", cascade=CascadeType.ALL, fetch=FetchType.EAGER)
+   // uno o varios episodiso pueden tener solo una serie
    private List<Episodio> episodios;
 
    public Serie(){
@@ -41,6 +42,15 @@ public class Serie {
       // this.sinopsis = ConsultaChatGPT.obtenerTraduccion(ds.sinopsis());
    }
    //getters and setters
+
+   public List<Episodio> getEpisodios() {
+      return episodios;
+   }
+
+   public void setEpisodios(List<Episodio> episodios) {
+      episodios.forEach(e->e.setSerie(this));
+      this.episodios = episodios;
+   }
 
    public long getId() {
       return Id;
@@ -116,7 +126,8 @@ public class Serie {
             "Poster='" + poster + '\'' + "\n" +
             "Genero=" + genero + "\n" +
             "Actores='" + actores + '\'' + "\n" +
-            "Sinopsis='" + sinopsis + '\'';
+            "Sinopsis='" + sinopsis + '\'' + "\n" +
+            "Episodios='" + episodios+'\n';
    }
 
 }

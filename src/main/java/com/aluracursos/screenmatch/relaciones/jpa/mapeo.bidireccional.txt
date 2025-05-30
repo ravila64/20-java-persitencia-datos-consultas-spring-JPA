@@ -1,0 +1,38 @@
+@Entity
+public class Alumno {
+
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
+
+    private String nombre;
+
+    // Mapeo bidireccional
+    @OneToMany(mappedBy = "alumno", cascade = CascadeType.ALL)
+    private List<Disciplina> disciplinas = new ArrayList<>();
+
+    // Método para agregar disciplinas
+    public void addDisciplina(Disciplina disciplina) {
+        this.disciplinas.add(disciplina);
+        disciplina.setAlumno(this);  // Sincroniza la relación en ambos lados
+    }
+
+    // Getters y setters
+ }
+
+ @Entity
+ public class Disciplina {
+
+     @Id
+     @GeneratedValue(strategy = GenerationType.IDENTITY)
+     private Long id;
+
+     private String nombre;
+
+     @ManyToOne
+     @JoinColumn(name = "alumno_id")  // Especifica la clave foránea en la tabla Disciplina
+     private Alumno alumno;
+
+     // Getters y setters
+  }
+  De esta forma el mapeo bidireccional usa @OneToMany y @ManyToOne y el método addDisciplina sincroniza ambas entidades, inicializa listas y evita errores.

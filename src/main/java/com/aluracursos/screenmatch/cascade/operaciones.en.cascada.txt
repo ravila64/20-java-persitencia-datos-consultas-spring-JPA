@@ -1,0 +1,38 @@
+Imagina que tenemos dos entidades: Post y Comentario. Un Post puede tener muchos Comentarios. Si eliminamos un Post, ¿qué sucede con los Comentarios relacionados a él? Los tipos de cascada tienen el objetivo de responder a este tipo de preguntas.
+
+Los diferentes tipos de cascada son:
+
+PERSIST: si persistes la entidad Post, los Comments relacionados también se persistirán.
+MERGE: si fusionas los detalles de un Post, los Comments relacionados también se fusionarán.
+REMOVE: si eliminas un Post, los Comments relacionados también se eliminarán.
+REFRESH: si actualizas el Post, también se actualizarán los Comments relacionados.
+DETACH: si un Post ha sido desanexado, todos los Comments relacionados también se desanexarán.
+ALL: si realizas cualquiera de las operaciones anteriores en un Post, esa operación se propagará a todos los Comments relacionados.
+Para aclarar estas definiciones, veamos cómo se ve esto en el código:
+**
+public class Post {
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
+
+    @OneToMany(mappedBy = "post", cascade = CascadeType.ALL)
+    private List<Comment> comments = new ArrayList<>();
+
+    //getters and setters
+}
+
+@Entity
+public class Comentario {
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
+
+    @ManyToOne
+    @JoinColumn(name = "post_id", nullable = false)
+    private Post post;
+
+    //getters and setters
+}
+**
+En este ejemplo, utilizamos CascadeType.ALL, por lo que todas las operaciones se aplicarán a los Comments cuando se realicen las operaciones correspondientes en el Post. Es importante tener conocimiento de estas variaciones para entender cuál de ellas se aplica al programa que estamos desarrollando.
+**

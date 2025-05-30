@@ -2,15 +2,13 @@ package com.aluracursos.screenmatch.principal;
 
 import com.aluracursos.screenmatch.model.DatosSerie;
 import com.aluracursos.screenmatch.model.DatosTemporadas;
+import com.aluracursos.screenmatch.model.Episodio;
 import com.aluracursos.screenmatch.repository.SerieRepository;
 import com.aluracursos.screenmatch.service.ConsumoAPI;
 import com.aluracursos.screenmatch.service.ConvierteDatos;
 import com.aluracursos.screenmatch.model.Serie;
 
-import java.util.ArrayList;
-import java.util.Comparator;
-import java.util.List;
-import java.util.Scanner;
+import java.util.*;
 import java.util.stream.Collectors;
 
 public class Principal {
@@ -22,6 +20,7 @@ public class Principal {
    private final String API_KEY = "&apikey=" + System.getenv("API_KEY_MOVIES");
    private List<DatosSerie> datosSeries = new ArrayList<>();
    private SerieRepository repositorio;
+   private List<Serie> series;
 
    public Principal(SerieRepository repository) {
       this.repositorio = repository;
@@ -34,11 +33,12 @@ public class Principal {
                1 - Buscar series 
                2 - Buscar episodios
                3 - Mostrar series buscadas
+               4 - Buscar series por titulo 
                
                0 - Salir
                """;
          System.out.println(menu);
-         System.out.print("Digite Opcion [1..3, 0=salir]-->");
+         System.out.print("Digite Opcion [1..4, 0=salir]-->");
          opcion = teclado.nextInt();
          teclado.nextLine();
 
@@ -51,6 +51,9 @@ public class Principal {
                break;
             case 3:
                mostrarSeriesBuscadas();
+               break;
+            case 4:
+               buscarSeriesPorTitulo();
                break;
             case 0:
                System.out.println("Cerrando la aplicación...");
@@ -71,14 +74,35 @@ public class Principal {
    }
 
    private void buscarEpisodioPorSerie() {
-      DatosSerie datosSerie = getDatosSerie();
-      List<DatosTemporadas> temporadas = new ArrayList<>();
-      for (int i = 1; i <= datosSerie.totalTemporadas(); i++) {
-         var json = consumoApi.obtenerDatos(URL_BASE + datosSerie.titulo().replace(" ", "+") + "&season=" + i + API_KEY);
-         DatosTemporadas datosTemporada = conversor.obtenerDatos(json, DatosTemporadas.class);
-         temporadas.add(datosTemporada);
+      // este getDatosSerie, viene de una API, se cargara desde la base de datos
+      //DatosSerie datosSerie = getDatosSerie();
+      // muestra series de la base de datos
+      mostrarSeriesBuscadas();
+      System.out.println("Escriba nombre de serie para ver los episodios ");
+      var nombreSerie = teclado.nextLine();
+
+      Optional<Serie> serie = series.stream()
+            .filter(s -> s.getTitulo().toUpperCase().trim().contains(nombreSerie.toUpperCase().trim()))
+            .findFirst();
+      if (serie.isPresent()) {
+         var serieEncontrada = serie.get();
+         List<DatosTemporadas> temporadas = new ArrayList<>();
+         for (int i = 1; i <= serieEncontrada.getTotalTemporadas(); i++) {
+            var json = consumoApi.obtenerDatos(URL_BASE + serieEncontrada.getTitulo().replace(" ", "+") + "&season=" + i + API_KEY);
+            DatosTemporadas datosTemporada = conversor.obtenerDatos(json, DatosTemporadas.class);
+            temporadas.add(datosTemporada);
+         }
+         temporadas.forEach(System.out::println);
+         //obtener una lista plana de todos los episodios de todas las series, flatMap()
+         List<Episodio> episodios = temporadas.stream()
+               .flatMap(d -> d.episodios().stream()
+                     .map(e -> new Episodio(d.numero(), e)))
+               .collect(Collectors.toList());
+         serieEncontrada.setEpisodios(episodios);
+         repositorio.save(serieEncontrada);
+      } else {
+         System.out.println("Serie no esta presente...!!!");
       }
-      temporadas.forEach(System.out::println);
    }
 
    private void buscarSerieWeb() {
@@ -98,11 +122,16 @@ public class Principal {
 //      series = datosSeries.stream()
 //            .map(d->new Serie(d))
 //            .collect(Collectors.toList());
-      List<Serie> series = repositorio.findAll();
-
+//    List<Serie> series = repositorio.findAll();
+      // series se declara gobal
+      series = repositorio.findAll();
       series.stream()
             .sorted(Comparator.comparing(Serie::getGenero))
             .forEach(System.out::println);
+   }
+
+   private void buscarSeriesPorTitulo() {
+      System.out.println("Aqui voy");
    }
 
 }
