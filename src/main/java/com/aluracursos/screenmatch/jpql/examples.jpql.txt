@@ -1,0 +1,14 @@
+La JPQL es un lenguaje de consulta orientado a objetos que se definió como parte de la especificación JPA (Java Persistence API). Se utiliza para realizar consultas en bases de datos relacionales de manera similar a SQL, pero con una diferencia fundamental: en lugar de trabajar con tablas y columnas, como en SQL, la JPQL trabaja con clases y atributos que forman parte de su modelo de dominio.
+// Exemplo de Query JPQL
+String jpql = "select c from Customer c where c.name like :name";
+**
+Comprendiendo el SQL Nativo
+
+Por otro lado, el SQL Nativo es el lenguaje estándar utilizado para interactuar con bases de datos relacionales. Con él, escribes consultas que son específicas para la estructura y sintaxis de la base de datos que estás utilizando.
+SELECT * FROM Customer WHERE name LIKE '%John%';
+**
+Por otro lado, con SQL Nativo, si decides cambiar de una base de datos a otra, es probable que tengas que reescribir parte de tus consultas, ya que cada base de datos tiene sus particularidades de sintaxis y funcionamiento.
+
+La elección entre JPQL y SQL Nativo a menudo depende de las necesidades de tu proyecto. Si la portabilidad es una prioridad y tu modelo de dominio es complejo y rico en información, JPQL puede ser la mejor opción. Si el rendimiento es una prioridad y necesitas un control detallado sobre tus consultas, SQL Nativo puede ser la mejor opción.
+
+Comprender estos conceptos te permitirá tomar decisiones más acertadas, minimizando problemas futuros y optimizando el rendimiento de tus aplicaciones. ¡Así que sigue estudiando y profundizando tus conocimientos!

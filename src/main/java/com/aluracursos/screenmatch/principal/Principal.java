@@ -18,6 +18,7 @@ public class Principal {
    private List<DatosSerie> datosSeries = new ArrayList<>();
    private SerieRepository repositorio;
    private List<Serie> series;
+   private Optional<Serie> serieBuscada;
 
    public Principal(SerieRepository repository) {
       this.repositorio = repository;
@@ -62,7 +63,7 @@ public class Principal {
                buscarSeriesPorCategoria();
                break;
             case 7:
-               filtrarTemporadasyEvaluacion();
+               filtrarSeriesPorTemporadaYEvaluacion();
                break;
             case 0:
                System.out.println("Cerrando la aplicación...");
@@ -142,7 +143,7 @@ public class Principal {
    private void buscarSeriesPorTitulo() {
       System.out.print("Escriba nombre de serie a buscar ");
       var nombreSerie = teclado.nextLine();
-      Optional<Serie> serieBuscada = repositorio.findByTituloContainsIgnoreCase(nombreSerie);
+      serieBuscada = repositorio.findByTituloContainsIgnoreCase(nombreSerie);
       if(serieBuscada.isPresent()){
          System.out.println("Serie buscada "+serieBuscada.get());
       }else{
@@ -156,7 +157,6 @@ public class Principal {
                   +" Evaluacion :"+s.getEvaluacion()));
    }
 
-
    private void buscarSeriesPorCategoria() {
       System.out.print("Escriba genero/categoria de la serie a buscar ");
       var genero = teclado.nextLine();
@@ -165,14 +165,19 @@ public class Principal {
       seriesPorCategoria.forEach(s-> System.out.println("Titulo "+s.getTitulo()+ " Genero "+s.getGenero()));
    }
 
-   private void filtrarTemporadasyEvaluacion() {
-      int totalTemporadas=3;
-      Double evaluacion = 7.8;
-      List<Serie> totalTemp = repositorio.findByTotalTemporadasLessThanEqualAndEvaluacionGreaterThanEqual(totalTemporadas,evaluacion);
-      totalTemp.forEach(System.out::println);
+   private void filtrarSeriesPorTemporadaYEvaluacion() {
+      System.out.print("Filtar series, con cuantas temporadas? : ");
+      var totalTemporadas = teclado.nextInt();
+      teclado.nextLine();
+      System.out.print("Con evaluacion a partir de cual valor : ");
+      var evaluacion = teclado.nextDouble();
+      teclado.nextLine();
+      // findByTotalTemporadasLessThanEqualAndEvaluacionGreaterThanEqual(numTemp, evalua)
+      List<Serie> filtroSeries= repositorio.seriesPorTemporadaYEvaluacion(totalTemporadas,evaluacion);
+      System.out.println("** series filtradas **");
+      filtroSeries.forEach(s->
+            System.out.println(s.getTitulo()+" - Evaluación "+s.getEvaluacion()));
    }
-
-
 
 }
 

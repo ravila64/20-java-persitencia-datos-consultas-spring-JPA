@@ -3,6 +3,7 @@ package com.aluracursos.screenmatch.repository;
 import com.aluracursos.screenmatch.model.Categoria;
 import com.aluracursos.screenmatch.model.Serie;
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.Query;
 
 import java.util.List;
 import java.util.Optional;
@@ -10,15 +11,22 @@ import java.util.Optional;
 // con que entidad se trabja en el JpaRepository(Serie, long)
 public interface SerieRepository extends JpaRepository<Serie, Long> {
    // busqueda x Titulo Conteniendo parte titulo e ignorando mayus-minus
-   Optional<Serie> findByTituloContainsIgnoreCase(String nombreSerie);
+      Optional<Serie> findByTituloContainsIgnoreCase(String nombreSerie);
    // Buscar Top 5 mejores series x evaluacion, orden de Mayor a menor
    List<Serie> findTop5ByOrderByEvaluacionDesc();
+
    // Lista series por categoria
    List<Serie> findByGenero(Categoria categoria);
-   List<Serie> findByTotalTemporadasLessThanEqualAndEvaluacionGreaterThanEqual(int totalTemporadas, Double evaluacion);
+
+   @Query("SELECT s FROM Serie s WHERE s.totalTemporadas <= :totalTemporadas AND s.evaluacion >= :evaluacion")
+   List<Serie> seriesPorTemporadaYEvaluacion(int totalTemporadas, Double evaluacion);
 
 
    //Optional<Serie> findByGenero(Categoria categoria); // probe y no funciono cuando no existe categoria
-   // buscar por temporadas y evaluacion, en resumen filtrar series
-   //
+   // busca una cantidad de temporadas >= #dado y una evaluacion>=numero dado, en resumen filtrar series
+   //List<Serie> findByTotalTemporadasLessThanEqualAndEvaluacionGreaterThanEqual(int totalTemporadas, Double evaluacion);
+   // qUEIRES NATIVAS
+   //@Query(value="SELECT * FROM series WHERE series.total_temporadas <= 6 AND series.evaluacion >=7.5", nativeQuery=true)
+   // JPAL
+
 }
