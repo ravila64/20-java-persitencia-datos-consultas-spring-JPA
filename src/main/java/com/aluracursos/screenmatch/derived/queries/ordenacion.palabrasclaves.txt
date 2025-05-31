@@ -1,0 +1,15 @@
+ordenaciones y otras palabras claves de las consultas derivadas
+Para trabajar con la ordenación de registros buscados, también existen algunas palabras clave. Podemos utilizar OrderBy para ordenar los registros por algún atributo de ellos, como la serie por la evaluación. También podemos encadenar atributos. Si una Serie tiene un Actor y queremos ordenar por el nombre del actor, podemos utilizar OrderByActorName, por ejemplo.
+
+Además de OrderBy, aún existen algunos otros recursos de filtros que pueden ser utilizados:
+
+Distinct, para eliminar datos duplicados
+First, para obtener el primer registro
+Top, para limitar el número de datos
+
+Todavía hay una infinidad de palabras clave y recursos que podemos utilizar con las derived queries. Sugerimos que leas la documentación y practiques.
+
+La documentación de Spring Data JPA está en el enlace.
+link: https://spring.io/projects/spring-data-jpa
+
+¡Buena lectura!

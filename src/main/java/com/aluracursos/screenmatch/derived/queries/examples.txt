@@ -1,0 +1,43 @@
+JPA tiene diversos recursos, y uno de los más interesantes que podemos utilizar son las "derived queries" (consultas derivadas), donde trabajamos con métodos específicos que consultan la base de datos de manera personalizada. Estos métodos se crean en la interfaz que hereda de JpaRepository. En ellos, utilizaremos palabras clave en inglés para indicar qué búsqueda queremos realizar.
+
+La estructura básica de una consulta derivada en JPA consiste en:
+
+verbo introductorio + palabra clave "By" + criterios de búsqueda
+
+Como verbos introductorios, tenemos find, read, query, count y get. Los criterios son variados. Veremos algunos ejemplos en el video, pero puedes explorar mucho la práctica para entenderlos mejor.
+
+Los criterios más simples involucran solo los atributos de la clase mapeada en el Repository. En nuestro caso, un ejemplo de este criterio sería findByTitulo, donde realizamos una búsqueda de series con un atributo específico de la clase Serie. Pero podemos agregar condiciones a estos criterios. Es aquí donde surge findByTituloContainingIgnoreCase(). Para aplicar filtros, podríamos usar varias otras palabras. Entre ellas, podemos mencionar:
+
+Palabras relativas a la igualdad:
+
+Is, para verificar igualdades
+
+Equals, para verificar igualdades (esta palabra clave y la anterior tienen los mismos principios y se utilizan más para la legibilidad del método).
+
+IsNot, para verificar desigualdades
+
+IsNull, para verificar si un parámetro es nulo
+
+Palabras relativas a la similitud:
+
+Containing, para palabras que contengan un fragmento
+
+StartingWith, para palabras que comiencen con un fragmento
+
+EndingWith, para palabras que terminen con un fragmento
+
+Estas palabras se pueden concatenar con otras condiciones, como ContainingIgnoreCase, para evitar problemas de sensibilidad a mayúsculas y minúsculas.
+
+Palabras relacionadas con la comparación:
+
+LessThan, para buscar registros menores que un valor
+
+LessThanEqual, para buscar registros menores o iguales a un valor
+
+GreaterThan, para identificar registros mayores que un valor
+
+GreaterThanEqual, para identificar registros mayores o iguales a un valor
+
+Between, para saber qué registros están entre dos valores
+
+Estas son solo algunas de las palabras que podemos utilizar, ¡y podemos combinarlas de muchas formas! A lo largo de los próximos videos, vamos a ejercitar nuestros conocimientos realizando varias búsquedas con estas palabras clave, ¡pero también te invitamos a probar con varios ejemplos para ver cómo funciona en la práctica!
