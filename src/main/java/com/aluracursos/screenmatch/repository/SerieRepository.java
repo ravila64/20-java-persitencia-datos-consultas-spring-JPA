@@ -12,7 +12,8 @@ import java.util.Optional;
 // con que entidad se trabja en el JpaRepository(Serie, long)
 public interface SerieRepository extends JpaRepository<Serie, Long> {
    // busqueda x Titulo Conteniendo parte titulo e ignorando mayus-minus
-      Optional<Serie> findByTituloContainsIgnoreCase(String nombreSerie);
+   Optional<Serie> findByTituloContainsIgnoreCase(String nombreSerie);
+
    // Buscar Top 5 mejores series x evaluacion, orden de Mayor a menor
    List<Serie> findTop5ByOrderByEvaluacionDesc();
 
@@ -20,10 +21,14 @@ public interface SerieRepository extends JpaRepository<Serie, Long> {
    List<Serie> findByGenero(Categoria categoria);
 
    @Query("SELECT s FROM Serie s WHERE s.totalTemporadas <= :totalTemporadas AND s.evaluacion >= :evaluacion")
-   List<Serie> seriesPorTemporadaYEvaluacion(int totalTemporadas, Double evaluacion);
+   List<Serie> seriesPorTemparadaYEvaluacion(int totalTemporadas, Double evaluacion);
 
    @Query("SELECT e FROM Serie s JOIN s.episodios e WHERE s.titulo ILIKE %:nombreEpisodio%")
    List<Episodio> episodiosPorNombre(String nombreEpisodio);
+
+   @Query("SELECT e FROM Serie s JOIN s.episodios e WHERE s = :serie" +
+         " ORDER BY e.evaluacion DESC LIMIT 5")
+   List<Episodio> top5EpisodiosPorSerie(Serie serie);
 
 
    //Optional<Serie> findByGenero(Categoria categoria); // probe y no funciono cuando no existe categoria

@@ -1,0 +1,25 @@
+LIKE es un comando SQL utilizado en la cláusula WHERE para buscar un patrón específico en una columna. En otras palabras, es una forma de realizar una búsqueda en una tabla, similar a cómo se utiliza un filtro de búsqueda en una hoja de cálculo de Excel o el método contains() en Java.
+La sintaxis básica para utilizar el comando LIKE es la siguiente:
+'''
+SELECT column1, column2, ...
+FROM table_name
+WHERE column LIKE pattern;
+'''
+
+Por ejemplo, para encontrar todos los nombres en una tabla de clientes que comienzan con 'A', usarías:
+'''
+SELECT nombre
+FROM clientes
+WHERE nombre LIKE 'A%';
+'''
+
+Si deseas todos los nombres que contienen 'A' en cualquier parte del nombre, utilizarías:
+'''
+SELECT nombre
+FROM clientes
+WHERE nombre LIKE '%A%';
+'''
+El comando ILIKE es una extensión específica de algunos sistemas de gestión de bases de datos, como PostgreSQL, que proporciona una coincidencia insensible a mayúsculas y minúsculas en el patrón de búsqueda, similar al comando LIKE.
+
+Entonces, ¿dónde encaja el comando ILIKE que usamos en clase? El comando LIKE es sensible a mayúsculas y minúsculas en algunos sistemas de gestión de bases de datos. Por lo tanto, si desea una búsqueda que no tenga en cuenta esto, similar a IgnoreCase en Java, debe utilizar ILIKE.
+**
